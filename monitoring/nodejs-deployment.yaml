@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-monitoring
+  labels:
+    app: nodejs-monitoring
+    tier: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-monitoring
+  template:
+    metadata:
+      labels:
+        app: nodejs-monitoring
+        tier: monitoring
+    spec:
+      containers:
+      - name: nodejs
+        image: node:16-alpine
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: MONITORING_SERVICE
+          value: "true"
+        command: ["node", "app.js"]
