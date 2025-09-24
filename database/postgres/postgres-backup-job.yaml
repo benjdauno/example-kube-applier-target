@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+  labels:
+    app: postgres-database
+    tier: database
+spec:
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: postgres-backup
+            image: postgres:13
+            command:
+            - /bin/bash
+            - -c
+            - |
+              PGPASSWORD=$POSTGRES_PASSWORD pg_dump -h postgres-database-service -U $POSTGRES_USER -d $POSTGRES_DB > /backup/backup-$(date +%Y%m%d-%H%M%S).sql
+              echo "Backup completed at $(date)"
+            env:
+            - name: POSTGRES_DB
+              value: "appdb"
+            - name: POSTGRES_USER
+              value: "appuser"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backup
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: postgres-backup-pvc
+          restartPolicy: OnFailure
