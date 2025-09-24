@@ -5,6 +5,7 @@ metadata:
   labels:
     app: nodejs-monitoring
     tier: monitoring
+    version: "3.0.0"
 spec:
   replicas: 2
   selector:

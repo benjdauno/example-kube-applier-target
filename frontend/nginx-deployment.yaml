@@ -5,6 +5,7 @@ metadata:
   labels:
     app: nginx-frontend
     tier: frontend
+    version: "3.0.0"
 spec:
   replicas: 3
   selector:
