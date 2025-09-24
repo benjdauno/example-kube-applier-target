@@ -5,7 +5,10 @@ metadata:
   labels:
     app: nginx-frontend
     tier: frontend
-    version: "3.0.0"
+    version: "4.0.0"
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+    kube-applier.io/last-applied: "2024-01-15T10:30:00Z"
 spec:
   replicas: 3
   selector:
