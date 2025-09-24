@@ -1,48 +1,21 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flask-backend-config
+  name: python-backend-config
   labels:
     app: flask-backend
     tier: backend
 data:
-  app.py: |
-    from flask import Flask, jsonify
-    import os
-    
-    app = Flask(__name__)
-    
-    @app.route('/')
-    def home():
-        return '''
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Backend Service</title>
-        </head>
-        <body>
-            <h1>Backend Service</h1>
-            <p>This is the Flask backend deployment managed by kube-applier.</p>
-            <p>API endpoints:</p>
-            <ul>
-                <li><a href="/api">/api</a> - API status</li>
-                <li><a href="/health">/health</a> - Health check</li>
-            </ul>
-        </body>
-        </html>
-        '''
-    
-    @app.route('/api')
-    def api():
-        return jsonify({
-            "service": "flask-backend",
-            "status": "running",
-            "version": "1.0.0"
-        })
-    
-    @app.route('/health')
-    def health():
-        return jsonify({"status": "healthy"})
-    
-    if __name__ == '__main__':
-        app.run(host='0.0.0.0', port=8080)
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Backend Service</title>
+    </head>
+    <body>
+        <h1>Backend Service</h1>
+        <p>This is the Python backend deployment managed by kube-applier.</p>
+        <p>Simple HTTP server running on port 8080</p>
+        <p>Version: 6.0.0</p>
+    </body>
+    </html>

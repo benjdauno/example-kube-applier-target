@@ -6,77 +6,16 @@ metadata:
     app: nodejs-monitoring
     tier: monitoring
 data:
-  app.js: |
-    const express = require('express');
-    const app = express();
-    const port = 3000;
-    
-    let requestCount = 0;
-    
-    app.get('/', (req, res) => {
-        res.send(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Monitoring Service</title>
-        </head>
-        <body>
-            <h1>Monitoring Service</h1>
-            <p>This is the Node.js monitoring deployment managed by kube-applier.</p>
-            <p>Endpoints:</p>
-            <ul>
-                <li><a href="/metrics">/metrics</a> - Prometheus metrics</li>
-                <li><a href="/health">/health</a> - Health check</li>
-                <li><a href="/stats">/stats</a> - Service statistics</li>
-            </ul>
-        </body>
-        </html>
-        `);
-    });
-    
-    app.get('/metrics', (req, res) => {
-        res.set('Content-Type', 'text/plain');
-        res.send(`# HELP http_requests_total Total number of HTTP requests
-# TYPE http_requests_total counter
-http_requests_total ${requestCount}
-
-# HELP nodejs_up Node.js service status
-# TYPE nodejs_up gauge
-nodejs_up 1
-`);
-    });
-    
-    app.get('/health', (req, res) => {
-        res.json({ status: 'healthy', timestamp: new Date().toISOString() });
-    });
-    
-    app.get('/stats', (req, res) => {
-        res.json({
-            service: 'nodejs-monitoring',
-            requests: requestCount,
-            uptime: process.uptime(),
-            memory: process.memoryUsage()
-        });
-    });
-    
-    app.use((req, res, next) => {
-        requestCount++;
-        next();
-    });
-    
-    app.listen(port, '0.0.0.0', () => {
-        console.log(`Monitoring service running on port ${port}`);
-    });
-  package.json: |
-    {
-      "name": "monitoring-service",
-      "version": "1.0.0",
-      "description": "Node.js monitoring service for kube-applier demo",
-      "main": "app.js",
-      "scripts": {
-        "start": "node app.js"
-      },
-      "dependencies": {
-        "express": "^4.18.2"
-      }
-    }
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Monitoring Service</title>
+    </head>
+    <body>
+        <h1>Monitoring Service</h1>
+        <p>This is the Node.js monitoring deployment managed by kube-applier.</p>
+        <p>Simple HTTP server running on port 3000</p>
+        <p>Version: 6.0.0</p>
+    </body>
+    </html>

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: flask-backend
     tier: backend
-    version: "4.0.0"
+    version: "6.0.0"
 spec:
   replicas: 5
   selector:
@@ -18,22 +18,18 @@ spec:
         tier: backend
     spec:
       containers:
-      - name: flask
+      - name: python-server
         image: python:3.9-slim
         ports:
         - containerPort: 8080
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "750m"
+            memory: "128Mi"
+            cpu: "250m"
           limits:
-            memory: "512Mi"
-            cpu: "1500m"
+            memory: "256Mi"
+            cpu: "500m"
         env:
-        - name: FLASK_APP
-          value: "app.py"
-        - name: FLASK_ENV
-          value: "production"
         - name: BACKEND_SERVICE
           value: "true"
-        command: ["python", "app.py"]
+        command: ["python", "-m", "http.server", "8080"]
