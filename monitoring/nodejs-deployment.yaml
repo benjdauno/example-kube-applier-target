@@ -5,6 +5,7 @@ metadata:
   labels:
     app: nodejs-monitoring
     tier: monitoring
+    version: "7.0.0"
 spec:
   replicas: 1
   selector:
@@ -25,9 +26,6 @@ spec:
           requests:
             memory: "64Mi"
             cpu: "100m"
-          limits:
-            memory: "128Mi"
-            cpu: "200m"
         env:
         - name: NODE_ENV
           value: "production"
