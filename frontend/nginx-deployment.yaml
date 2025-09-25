@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx-frontend
     tier: frontend
-    version: "6.0.0"
+    version: "9.0.0"
   annotations:
     deployment.kubernetes.io/revision: "4"
     kube-applier.io/last-applied: "2024-01-15T10:30:00Z"
@@ -19,6 +19,7 @@ spec:
       labels:
         app: nginx-frontend
         tier: frontend
+        version: "9.0.0"
     spec:
       containers:
       - name: nginx

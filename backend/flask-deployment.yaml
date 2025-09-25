@@ -5,7 +5,7 @@ metadata:
   labels:
     app: flask-backend
     tier: backend
-    version: "6.0.0"
+    version: "9.0.0"
 spec:
   replicas: 5
   selector:
@@ -16,6 +16,7 @@ spec:
       labels:
         app: flask-backend
         tier: backend
+        version: "9.0.0"
     spec:
       containers:
       - name: python-server

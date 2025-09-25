@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nodejs-monitoring
     tier: monitoring
-    version: "6.0.0"
+    version: "9.0.0"
 spec:
   replicas: 2
   selector:
@@ -16,6 +16,7 @@ spec:
       labels:
         app: nodejs-monitoring
         tier: monitoring
+        version: "9.0.0"
     spec:
       containers:
       - name: nodejs-server
